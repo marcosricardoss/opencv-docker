@@ -1,0 +1,18 @@
+version: '3.2'
+services:
+  opencv:
+    container_name: opencv-example-1
+    build: .
+    command: python app.py
+    volumes:
+      - './:/usr/src/app'
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    devices:  
+      - /dev/video0:/dev/video0
+    environment:
+      - DISPLAY=$DISPLAY
+
+# $DISPLAY environment varible and .X11 volume specify 
+# the Docker container to share the X11 socket and host display.
+# The command 'xhost +', that allows any client to connect from any host,
+# must be executed before the container 'up' command (like bash script file bin/dev).
